@@ -40,3 +40,29 @@ frontend/    frontend application
 ml/          audio and inference related code
 scripts/     local development scripts
 docker/      container definitions
+```
+
+## Development History
+
+### Implemented initial backend slice
+- added backend bootstrap and app entrypoint in `backend/app/main.py`
+- added configuration loading in `backend/app/core/config.py`
+- added SQLAlchemy base and session wiring in `backend/app/db/base.py` and `backend/app/db/session.py`
+- added Alembic bootstrap files in `alembic.ini` and `alembic/env.py`
+- added minimal observation list API in `backend/app/api/v1/observations.py`
+- added minimal observation schema and ORM model in `backend/app/schemas/observation.py` and `backend/app/db/models/observation.py`
+- added backend bootstrap and observation API tests in `backend/tests/conftest.py` and `backend/tests/api/test_bootstrap.py`
+
+### Implemented initial frontend slice
+- added Next.js frontend bootstrap in `frontend/package.json`, `frontend/tsconfig.json`, and `frontend/next-env.d.ts`
+- added app entry files in `frontend/src/app/layout.tsx` and `frontend/src/app/page.tsx`
+- added first desktop-oriented workspace shell in `frontend/src/components/workspace-shell.tsx`
+- added global desktop UI styling in `frontend/src/app/globals.css`
+- changed frontend dev and start port to `3102` in `frontend/package.json`
+
+### Added operation and implementation documentation
+- added operation guides in `docs/operation/operation_guide_en.md` and `docs/operation/operation_guide_ja.md`
+- added implemented feature guides in `docs/operation/implemented_features_en.md` and `docs/operation/implemented_features_ja.md`
+
+### Added PostgreSQL-oriented backend environment example
+- expanded `.env.example` with PostgreSQL host, port, database, user, and password variables

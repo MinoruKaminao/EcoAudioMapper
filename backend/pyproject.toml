@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ecoaudio-mapper-backend"
+version = "0.1.0"
+description = "Minimal backend bootstrap slice for EcoAudio Mapper"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "alembic>=1.13,<2.0",
+    "fastapi>=0.115,<1.0",
+    "geoalchemy2>=0.16,<1.0",
+    "pydantic-settings>=2.3,<3.0",
+    "psycopg[binary]>=3.2,<4.0",
+    "sqlalchemy>=2.0,<3.0",
+    "uvicorn>=0.30,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx>=0.28,<1.0",
+    "pytest>=8.3,<9.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "app",
+    "README.md",
+    "pyproject.toml",
+    "tests",
+]
