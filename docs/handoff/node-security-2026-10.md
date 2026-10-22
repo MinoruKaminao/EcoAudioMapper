@@ -69,3 +69,4 @@ Claude Code への作業依頼。上から順に読み、「作業」を実施�
 - 残課題:
   - 上記 Next.js の更新（今回のスコープ外のため未実施）
   - `npm audit` は `nanoid` / `postcss` / `sharp` / `source-map-js`（Next.js 経由を含む）にも high を報告。Next.js の更新で大半が解消する見込み
+- 追補 2026-10-23: Next.js の更新は未対応・判断待ち（オーナー判断で今回は触れない）。現状・`npm audit` の結果・選択肢（15.3.9 / 15.5.28 / 16.4.2）を [`docs/nextjs-security-upgrade.md`](../nextjs-security-upgrade.md) にまとめた。engine-strict もこのリポジトリには入れていない
