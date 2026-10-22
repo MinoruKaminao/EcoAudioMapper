@@ -26,11 +26,11 @@ Claude Code への作業依頼。上から順に読み、「作業」を実施�
 
 ## 作業
 
-- [ ] 手元の Node を `24.22.1`（または `22.23.4` / `26.12.1`）以上に更新し、`node -v` で確認する
-- [ ] リポジトリ直下に `.nvmrc`（内容: `24`）を追加する
-- [ ] Node を使う `package.json` に `"engines": { "node": ">=22.23.4 <23 || >=24.22.1 <25 || >=26.12.1" }` を追加する
-- [ ] `frontend` で `npm ci` と `npm run build` が通ることを確認する
-- [ ] README に推奨 Node バージョンを追記する
+- [x] 手元の Node を `24.22.1`（または `22.23.4` / `26.12.1`）以上に更新し、`node -v` で確認する
+- [x] リポジトリ直下に `.nvmrc`（内容: `24`）を追加する（ユーザー判断により内容は `26.12.1`）
+- [ ] Node を使う `package.json` に `"engines": { "node": ">=22.23.4 <23 || >=24.22.1 <25 || >=26.12.1" }` を追加する（ユーザー判断により `">=26.12.1"`）
+- [x] `frontend` で `npm ci` と `npm run build` が通ることを確認する
+- [x] README に推奨 Node バージョンを追記する
 
 ## 完了条件
 
@@ -49,8 +49,23 @@ Claude Code への作業依頼。上から順に読み、「作業」を実施�
 
 ## 完了報告
 
-- 実施日:
+- 実施日: 2026-10-23
+- 対象バージョンについて: ハンドオフ記載の `24`（engines は 22/24/26 の範囲指定）ではなく、**ユーザー判断で 26.12.1 に統一**した。
 - 変更したファイル:
-- 確認した Node バージョン（`node -v` の出力）:
+  - `.nvmrc`（新規、内容 `26.12.1`）
+  - `frontend/package.json`: `"engines": { "node": ">=26.12.1" }` を追加。`@types/node` を `24.6.0` → `^26` に変更（Node 26 の型に合わせるため。ロック上は `26.6.5`）
+  - `frontend/package-lock.json`: 上記に合わせて同期
+  - `README.md`: `## Requirements` に推奨 Node バージョン（26.12.1 以上、`.nvmrc`）を追記
+  - `AGENTS.md` を確認し、規約（公開リポジトリ・秘匿情報を含めない等）に従った
+- 確認した Node バージョン（`node -v` の出力）: `v26.12.1`（npm `11.20.0`）
 - テスト・動作確認の結果:
+  - `frontend`: コミット済みロックファイルで `npm ci` 成功
+  - `frontend`: `npm run build`（`next build`）成功。`npm run typecheck`（`tsc --noEmit`）成功
+  - テストスクリプトは定義されていない
+- Next.js のセキュリティ修正（報告のみ、変更はしていない）:
+  - 15.3 系の最新パッチは `15.3.9`（現在は `15.3.1`）。`npm audit --omit=dev` は `next` に critical を含む多数の advisory を報告
+  - `15.3.9` へ上げると 15.3 系向けの修正（critical の RCE GHSA-9qr9-h5gf-34mp、GHSA-mwv6-3258-q52c、GHSA-h25m-26qc-wcjf など）は取り込めるが、15.5 系でのみ修正された advisory（critical の GHSA-p293-qw3h-jr36 / GHSA-2xp9-vwfh-vxw4 / GHSA-2464-fhr4-w9xw など）は残る。npm audit が示す修正版は `15.5.28`（マイナー更新）
+  - **更新が必要**と判断する。少なくとも `15.3.9` へのパッチ更新、できれば `15.5.28` 以降へのマイナー更新を別途判断・実施してほしい
 - 残課題:
+  - 上記 Next.js の更新（今回のスコープ外のため未実施）
+  - `npm audit` は `nanoid` / `postcss` / `sharp` / `source-map-js`（Next.js 経由を含む）にも high を報告。Next.js の更新で大半が解消する見込み
