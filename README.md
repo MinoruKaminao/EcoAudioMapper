@@ -29,6 +29,9 @@ This product should behave like a modern Apple-native application while expressi
 - restrained neutral styling
 - pane-based workflows with sidebar / main workspace / inspector when useful
 
+## Requirements
+- Node.js 26.12.1 or later for `frontend/` (pinned in `.nvmrc`; run `nvm use` in the repository root)
+
 ## Repository Structure
 ```text
 docs/        documentation, requirements, design, plans, tests, operations
